@@ -2234,7 +2234,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 202836360}
-  - component: {fileID: 202836359}
+  - component: {fileID: 202836361}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -2242,55 +2242,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &202836359
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 202836358}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c890e564a9e696f4caa431e2cd4353ec, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _projectileSpawnPoint: {fileID: 1218373424}
-  _projectilePrefab: {fileID: 8960934734232663469, guid: 7cd2b27d100bed242aca849ad99ea8ca, type: 3}
-  _cannonBarrel: {fileID: 5162481051312030788}
-  _maxProjectiles: 5
-  _fireDelay: 0.5
-  _projectileSpeed: 20
-  _showTrajectoryPreview: 1
-  _trajectoryLineRenderer: {fileID: 0}
-  _trajectoryPreviewResolution: 20
-  _trajectoryPreviewUpdateRate: 0.2
-  _muzzleFlashEffect: {fileID: 0}
-  _explosionEffect: {fileID: 0}
-  _audioSource: {fileID: 358604938}
-  _fireSound: {fileID: 0}
-  _explosionSound: {fileID: 0}
-  _impactSound: {fileID: 0}
-  onProjectileCountChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  onAccuracyCalculated:
-    m_PersistentCalls:
-      m_Calls: []
-  onDistanceCalculated:
-    m_PersistentCalls:
-      m_Calls: []
-  onHighScoreUpdated:
-    m_PersistentCalls:
-      m_Calls: []
-  onAngleChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  onPowderChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  onGameOver:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!4 &202836360
 Transform:
   m_ObjectHideFlags: 0
@@ -2308,8 +2259,43 @@ Transform:
   - {fileID: 422617195}
   - {fileID: 1485986385}
   - {fileID: 1477813777}
+  - {fileID: 1638293977}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &202836361
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 202836358}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a0cfc641f556b64a92ac6a57a4e5d23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxProjectiles: 5
+  onGameStarted:
+    m_PersistentCalls:
+      m_Calls: []
+  onGameOver:
+    m_PersistentCalls:
+      m_Calls: []
+  onRestartGame:
+    m_PersistentCalls:
+      m_Calls: []
+  onProjectileCountChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  onAccuracyCalculated:
+    m_PersistentCalls:
+      m_Calls: []
+  onDistanceCalculated:
+    m_PersistentCalls:
+      m_Calls: []
+  onHighScoreUpdated:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1001 &204504010
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14423,6 +14409,126 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1638293976
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1638293977}
+  - component: {fileID: 1638293982}
+  - component: {fileID: 1638293980}
+  - component: {fileID: 1638293979}
+  - component: {fileID: 1638293978}
+  - component: {fileID: 1638293983}
+  m_Layer: 0
+  m_Name: Cannon
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1638293977
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1638293976}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 202836360}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1638293978
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1638293976}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18f246e52a351d9468dfbbecd7752265, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _horizontalRotationSpeed: 20
+  _verticalRotationSpeed: 15
+  _maxHorizontalAngle: 180
+  _minHorizontalAngle: -180
+  _maxVerticalAngle: 45
+  _minVerticalAngle: 0
+  _cannonBase: {fileID: 5162481051312030788}
+  _cannonBarrel: {fileID: 5162481053165160666}
+  _rotationSound: {fileID: 0}
+  onAngleChanged:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &1638293979
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1638293976}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 392c9fbc2a164f449a77c875e070d778, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _trajectoryLineRenderer: {fileID: 0}
+  _showTrajectoryPreview: 1
+  _trajectoryPreviewResolution: 20
+  _trajectoryPreviewUpdateRate: 0.2
+--- !u!114 &1638293980
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1638293976}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a911aed41052ad4e9ec1487356be013, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _projectileSpawnPoint: {fileID: 1218373424}
+  _projectilePrefab: {fileID: 8960934734232663469, guid: 7cd2b27d100bed242aca849ad99ea8ca, type: 3}
+  _fireDelay: 0.5
+--- !u!114 &1638293982
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1638293976}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e5c4706f01df434b8d90f00baf1bf65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _muzzleFlashEffect: {fileID: 0}
+  _explosionEffect: {fileID: 0}
+  _cannonBarrel: {fileID: 5162481051312030788}
+  _fireSound: {fileID: 8300000, guid: 8ccfd588dbd5da642b28e1f1458ef9c4, type: 3}
+  _explosionSound: {fileID: 8300000, guid: cd9a626ebe9f8d54eb5c046210821eb5, type: 3}
+--- !u!114 &1638293983
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1638293976}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c890e564a9e696f4caa431e2cd4353ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1640871655
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16745,18 +16851,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _targetCenter: {fileID: 1931556982}
-  _width: 5
-  _height: 5
-  _planeNormal: {x: 0, y: 0, z: 1}
-  _showGizmos: 1
-  _gizmoColor: {r: 1, g: 0.5, b: 0, a: 0.5}
-  _perfectHitEffectPrefab: {fileID: 0}
-  _goodHitEffectPrefab: {fileID: 0}
-  _badHitEffectPrefab: {fileID: 0}
+  _targetWidth: 30
+  _targetHeight: 18
+  _drawTargetGizmo: 1
+  _targetPlaneColor: {r: 1, g: 0, b: 0, a: 0.3}
   _hitMarkerPrefab: {fileID: 1087284919190185534, guid: 6eff1cec938e08744ac39a4f310a4783, type: 3}
-  _perfectHitSound: {fileID: 0}
-  _goodHitSound: {fileID: 0}
-  _badHitSound: {fileID: 0}
+  _hitMarkerLifetime: 60
+  _maxHitMarkers: 10
+  _hitEffectPrefabs: []
 --- !u!1001 &1932933821
 PrefabInstance:
   m_ObjectHideFlags: 0

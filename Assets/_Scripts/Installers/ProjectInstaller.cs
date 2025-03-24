@@ -20,6 +20,12 @@ public class ProjectInstaller : MonoInstaller
         Container.Bind<Target>().FromComponentInHierarchy().AsSingle();
         Container.Bind<ResultsPanel>().FromComponentInHierarchy().AsSingle();
         
+        // Регистрируем новые компоненты, созданные при рефакторинге
+        Container.Bind<GameStateManager>().FromComponentInHierarchy().AsSingle();
+        Container.Bind<CannonShooter>().FromComponentInHierarchy().AsSingle();
+        Container.Bind<CannonEffects>().FromComponentInHierarchy().AsSingle();
+        Container.Bind<TrajectoryVisualizer>().FromComponentInHierarchy().AsSingle();
+        
         // Регистрируем UI-контроллер
         Container.Bind<GameUIController>().FromComponentInHierarchy().AsSingle();
     }

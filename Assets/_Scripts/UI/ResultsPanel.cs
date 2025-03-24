@@ -46,16 +46,6 @@ public class ResultsPanel : MonoBehaviour
             panel.SetActive(false);
         }
     }
-    
-    private void OnDestroy()
-    {
-        if (_closeButton != null)
-        {
-            _closeButton.onClick.RemoveAllListeners();
-        }
-        
-        onPanelClosed.RemoveAllListeners();
-    }
     #endregion
 
     #region Public Methods
@@ -103,13 +93,8 @@ public class ResultsPanel : MonoBehaviour
         // Скрываем панель
         panel.SetActive(false);
         
-        // Перезапускаем игру, если найден менеджер
-        if (_gameManager != null)
-        {
-            _gameManager.StartNewGame();
-        }
-        
         // Вызываем событие закрытия панели
+        // Перезапуск игры будет обрабатываться в GameUIController
         onPanelClosed.Invoke();
     }
     #endregion

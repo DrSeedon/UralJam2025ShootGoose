@@ -61,11 +61,6 @@ public class PowderController : MonoBehaviour
             _soundTimer = 0;
         }
     }
-    
-    private void OnDestroy()
-    {
-        onPowderChanged.RemoveAllListeners();
-    }
     #endregion
 
     #region Public Methods

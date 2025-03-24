@@ -265,7 +265,7 @@ public class CannonController : MonoBehaviour
         }
     }
 
-    private void NotifyAngleChanged()
+    public void NotifyAngleChanged()
     {
         onAngleChanged.Invoke(_currentHorizontalAngle, _currentVerticalAngle);
     }

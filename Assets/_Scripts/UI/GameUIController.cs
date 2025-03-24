@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine.EventSystems;
 using Zenject;
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 
 /// <summary>
 /// Центральный контроллер UI для всей игры
@@ -38,6 +39,9 @@ public class GameUIController : MonoBehaviour
     [Inject] private CannonController _cannonController;
     [Inject] private PowderController _powderController;
     [Inject] private CannonGameManager _gameManager;
+    [Inject] private ResultsPanel _resultsPanel;
+    [Inject] private GameStateManager _gameStateManager;
+    [Inject] private CannonShooter _cannonShooter;
 
     // Словарь для хранения ссылок на EventTrigger для каждой кнопки
     private Dictionary<Button, EventTrigger> _buttonEventTriggers = new Dictionary<Button, EventTrigger>();
@@ -49,29 +53,9 @@ public class GameUIController : MonoBehaviour
     private void Start()
     {
         SetupButtonListeners();
-        InitializeUIValues();
         SubscribeToEvents();
     }
     
-    #endregion
-
-    #region Initialization
-
-    private void InitializeUIValues()
-    {
-        // Инициализация значений UI элементов
-        UpdatePowderUI(_powderController.CurrentPowderPercentage);
-        UpdateAnglesUI(0, 0); // Начальные углы
-        UpdateProjectileCountUI(_gameManager.ProjectilesRemaining);
-        UpdateHighScoreUI(_gameManager.HighScore);
-        
-        // Инициализируем слайдер, если он есть
-        if (_powderSlider != null)
-        {
-            _powderSlider.onValueChanged.AddListener(OnPowderSliderChanged);
-        }
-    }
-
     private void SetupButtonListeners()
     {
         // Настройка кнопок управления пушкой
@@ -105,6 +89,14 @@ public class GameUIController : MonoBehaviour
         {
             AddButtonEvents(_decreasePowderButton, OnDecreasePowderDown, OnDecreasePowderUp);
         }
+        
+        // Настройка слайдера пороха
+        if (_powderSlider != null)
+        {
+            _powderSlider.onValueChanged.AddListener(OnPowderSliderChanged);
+            _powderSlider.minValue = 0;
+            _powderSlider.maxValue = 100;
+        }
 
         // Настройка кнопки выстрела
         if (_fireButton != null)
@@ -115,14 +107,23 @@ public class GameUIController : MonoBehaviour
 
     private void SubscribeToEvents()
     {
-        // Подписываемся на события CannonGameManager
-        _gameManager.onProjectileCountChanged.AddListener(UpdateProjectileCountUI);
-        _gameManager.onAccuracyCalculated.AddListener(UpdateAccuracyUI);
-        _gameManager.onGameOver.AddListener(OnGameOver);
-        _gameManager.onAngleChanged.AddListener(UpdateAnglesUI);
-        _gameManager.onPowderChanged.AddListener(UpdatePowderUI);
-        _gameManager.onDistanceCalculated.AddListener(UpdateDistanceUI);
-        _gameManager.onHighScoreUpdated.AddListener(UpdateHighScoreUI);
+        // Подписываемся на события GameStateManager вместо CannonGameManager
+        _gameStateManager.onProjectileCountChanged.AddListener(UpdateProjectileCountUI);
+        _gameStateManager.onAccuracyCalculated.AddListener(UpdateAccuracyUI);
+        _cannonController.onAngleChanged.AddListener(UpdateAnglesUI);
+        _powderController.onPowderChanged.AddListener(UpdatePowderUI);
+        _gameStateManager.onDistanceCalculated.AddListener(UpdateDistanceUI);
+        _gameStateManager.onHighScoreUpdated.AddListener(UpdateHighScoreUI);
+        
+        // Принудительно обновляем UI при старте
+        UpdateProjectileCountUI(_gameStateManager.ProjectilesRemaining);
+        UpdatePowderUI(_powderController.CurrentPowderPercentage);
+        UpdateHighScoreUI(_gameStateManager.HighScore);
+        _cannonController.NotifyAngleChanged(); // Вызываем событие для обновления углов
+        
+        // Тестовые вызовы для проверки обновления UI
+        UpdateDistanceUI(0f);  // Устанавливаем начальное расстояние
+        UpdateAccuracyUI(0f);  // Устанавливаем начальную точность
     }
     #endregion
 
@@ -199,7 +200,8 @@ public class GameUIController : MonoBehaviour
     // Обработчик для кнопки выстрела
     private void OnFireButtonClicked()
     {
-        _gameManager.FireCannon();
+        // Используем CannonShooter вместо CannonGameManager
+        _cannonShooter.FireCannon().Forget();
     }
 
     #endregion
@@ -327,11 +329,5 @@ public class GameUIController : MonoBehaviour
         string sign = angle < 0 ? "-" : "";
         return $"{sign}{degrees}° {minutes:00}'";
     }
-
-    private void OnGameOver()
-    {
-        // Можно добавить дополнительную обработку конца игры здесь
-    }
-
     #endregion
 } 
